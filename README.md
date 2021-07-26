@@ -6,7 +6,7 @@ Create a Windows WPF program that can be used as in invoice system for a small b
 
 The group project will be broken up so that each member is responsible for everything for a single Window.  So, for a 3-person team, one person will do everything for the Main Window, another person does the Search Window, and the last does the Edit Items Window.
 
-            The Visual Studio project will be created and 3 folders will be added to the project.  The folders will be called “Search”, “Main”, and “Items”.  Inside these folders, each member will put their respective code files. 
+The Visual Studio project will be created and 3 folders will be added to the project.  The folders will be called “Search”, “Main”, and “Items”.  Inside these folders, each member will put their respective code files. 
 
 For the “Search” folder, there should be a XAML file for the UI called “wndSearch.xaml”, another file named “clsSearchSQL” which contains all SQL statements for the Search Window, and the last file should be “clsSearchLogic” which will contain all business logic for the Search Window.
 
