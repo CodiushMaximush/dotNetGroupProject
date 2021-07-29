@@ -4,22 +4,25 @@ using System.Data.OleDb;
 using System.IO;
 using System.Reflection;
 
-/// <summary>
-/// Class used to access the database.
-/// </summary>
+
+
+
+
 public class clsItemsLogic
 {
-    /// <summary>
-    /// Connection string to the database.
-    /// </summary>
-    private string sConnectionString;
 
-    /// <summary>
-    /// Constructor that sets the connection string to the database
-    /// </summary>
+    public string sConnectionString;
+
+
+
+
     public clsItemsLogic()
     {
+
         sConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data source= " + Directory.GetCurrentDirectory() + "\\Group Project DB\\Invoice.mdb";
+    }
+
+
 
     /// <summary>
     /// This method takes an SQL statment that is passed in and executes it.  The resulting values
@@ -146,4 +149,5 @@ public class clsItemsLogic
             throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
         }
     }
+
 }

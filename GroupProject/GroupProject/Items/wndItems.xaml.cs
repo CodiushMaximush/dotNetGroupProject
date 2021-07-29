@@ -21,7 +21,9 @@ namespace GroupProject.Items
     {
         public wndItems()
         {
-            DGEditItems.CanUserAddRows = false;
+
+            //this line causes crashes
+           // DGEditItems.CanUserAddRows = false;
             InitializeComponent();
         }
         //To Do

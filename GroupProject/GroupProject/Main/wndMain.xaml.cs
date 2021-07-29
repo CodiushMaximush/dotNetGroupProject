@@ -42,7 +42,8 @@ namespace GroupProject.Main
             mainLogic = new clsMainLogic();
 
             //register our listeners
-            searchWindow.searchLogic.onInvoiceSelected += mainLogic.UpdateInvoice;
+            searchWindow.searchLogic.onInvoiceSelected += mainLogic.SelectInvoice;
+            mainLogic.dataUpdated += UpdateUI;
 
             //test list for listview
             List<ItemDesc> items = new List<ItemDesc>();
@@ -72,6 +73,25 @@ namespace GroupProject.Main
         {
             //open search window screen
             searchWindow.Show();
+
+        }
+
+        private void addInvoice_Click(object sender, RoutedEventArgs e) {
+
+            mainLogic.CreateInvoice();
+        }
+        private void deleteItems_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void deleteInvoice_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
+        public void UpdateUI() {
+
 
         }
 
