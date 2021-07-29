@@ -21,7 +21,13 @@ namespace GroupProject.Items
     {
         public wndItems()
         {
+            DGEditItems.CanUserAddRows = false;
             InitializeComponent();
+        }
+        //To Do
+        private void DGEditItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

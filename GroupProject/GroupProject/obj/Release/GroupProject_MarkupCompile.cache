@@ -4,15 +4,15 @@
 winexe
 C#
 .cs
-C:\Users\Justin.VIPEN-PC\Source\Repos\CodiushMaximush\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\
+C:\Users\Justin.VIPEN-PC\Source\Repos\CodiushMaximush\dotNetGroupProject\GroupProject\GroupProject\obj\Release\
 GroupProject
 none
 false
-DEBUG;TRACE
+TRACE
 C:\Users\Justin.VIPEN-PC\Source\Repos\CodiushMaximush\dotNetGroupProject\GroupProject\GroupProject\App.xaml
 4-1365973282
 
-15-2101861778
+14-1259502411
 13-1505183044
 Items\wndItems.xaml;MainWindow.xaml;Main\wndMain.xaml;Search\wndSearch.xaml;
 
