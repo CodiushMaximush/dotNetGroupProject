@@ -5,8 +5,47 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GroupProject.Main"
         mc:Ignorable="d"
-        Title="wndMain" Height="450" Width="800">
+        Title="Main Window" Height="450" Width="800">
     <Grid>
-        
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                    <MenuItem Header="_Edit Items" Click="editItems_Click" />
+                    <MenuItem Header="_Find Invoice" Click="findInvoice_Click" />
+            </Menu>
+            <TextBox AcceptsReturn="True" />
+
+            <StackPanel>
+                <GroupBox Header="Details" Height="150">
+                    <StackPanel>
+                        <Label>Invoice Number: </Label>
+                        <Label>Invoice Date: </Label>
+                        <Label>Total Cost: </Label>
+                    </StackPanel>
+
+                </GroupBox>
+            <GroupBox Header="Items" DockPanel.Dock="Left"  Height="245">
+                <ListView  Name="invoiceItemsListView" >
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Item Name" Width="300" DisplayMemberBinding="{Binding Desc}" />
+                            <GridViewColumn Header="Cost" Width="100" DisplayMemberBinding="{Binding Cost}" />
+                        </GridView>
+                    </ListView.View>
+
+                </ListView>
+                
+            </GroupBox>
+
+            </StackPanel>
+            <GroupBox Header="Controls" DockPanel.Dock="Right">
+                <StackPanel>
+                    
+                    
+                </StackPanel>
+
+            </GroupBox>
+        </DockPanel>
+
+       
     </Grid>
 </Window>

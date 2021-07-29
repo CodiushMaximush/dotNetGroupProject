@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace GroupProject.Search
 {
-    class clsSearchLogic
+    public class clsSearchLogic
     {
+        /// <summary>
+        /// delegate Action invoked when invoice is selected
+        /// Invoke like this: onInvoiceSelected?.Invoke(selectedInvoice);
+        /// </summary>
+        public Action<Invoices> onInvoiceSelected;
+        
     }
+
 }

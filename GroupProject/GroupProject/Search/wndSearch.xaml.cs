@@ -19,9 +19,12 @@ namespace GroupProject.Search
     /// </summary>
     public partial class wndSearch : Window
     {
+        public clsSearchLogic searchLogic;
+
         public wndSearch()
         {
             InitializeComponent();
+            searchLogic = new clsSearchLogic();
         }
     }
 }
