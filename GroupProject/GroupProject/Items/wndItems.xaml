@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GroupProject.Items"
         mc:Ignorable="d"
-        Title="wndItems" Height="450" Width="800">
+        Title="Edit Items Window" Height="450" Width="800">
     <Grid>
-        
+        <DataGrid x:Name="DGEditItems" HorizontalAlignment="Left" Height="258" Margin="10,151,0,0" VerticalAlignment="Top" Width="772" SelectionChanged="DGEditItems_SelectionChanged"/>
+        <Label x:Name="LblTitle" Content="Edit items in datagrid below" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="37" Width="272" FontSize="20"/>
     </Grid>
 </Window>
