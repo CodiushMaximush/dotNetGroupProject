@@ -29,5 +29,41 @@ namespace GroupProject.Items
         {
 
         }
+        //To Do
+        private void BtnAdd_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        //To Do
+        private void BtnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (DGEditItems.SelectedIndex == -1)    // Selection is empty
+                {
+                    throw new InvalidOperationException("Cannot delete item, no item selected");
+                }
+            }
+            catch (InvalidOperationException ioe)
+            {
+                MessageBox.Show(ioe.Message);
+            }
+        }
+        //To Do
+        private void BtnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (DGEditItems.SelectedIndex == -1)    // Selection is empty
+                {
+                    throw new InvalidOperationException("Cannot edit item, no item selected");
+                }
+            }
+            catch (InvalidOperationException ioe)
+            {
+                MessageBox.Show(ioe.Message);
+            }
+
+        }
     }
 }

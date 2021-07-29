@@ -7,7 +7,10 @@
         mc:Ignorable="d"
         Title="Edit Items Window" Height="450" Width="800">
     <Grid>
-        <DataGrid x:Name="DGEditItems" HorizontalAlignment="Left" Height="258" Margin="10,151,0,0" VerticalAlignment="Top" Width="772" SelectionChanged="DGEditItems_SelectionChanged"/>
-        <Label x:Name="LblTitle" Content="Edit items in datagrid below" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="37" Width="272" FontSize="20"/>
+        <DataGrid x:Name="DGEditItems" HorizontalAlignment="Left" Height="269" Margin="10,140,0,0" VerticalAlignment="Top" Width="377" SelectionChanged="DGEditItems_SelectionChanged"/>
+        <Label x:Name="LblTitle" Content="Add, delete, or Edit Items in the datagrid below" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="37" Width="472" FontSize="20"/>
+        <Button x:Name="BtnDelete" Content="Delete Item" HorizontalAlignment="Left" Margin="409,272,0,0" VerticalAlignment="Top" Width="130" Height="35" Click="BtnDelete_Click"/>
+        <Button x:Name="BtnAdd" Content="Add Item" HorizontalAlignment="Left" Margin="409,214,0,0" VerticalAlignment="Top" Width="130" Height="35" Click="BtnAdd_Click"/>
+        <Button x:Name="BtnEdit" Content="Edit Item" HorizontalAlignment="Left" Margin="409,330,0,0" VerticalAlignment="Top" Width="130" Height="35" Click="BtnEdit_Click"/>
     </Grid>
 </Window>
