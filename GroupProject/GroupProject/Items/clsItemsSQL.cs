@@ -34,26 +34,21 @@ namespace GroupProject.Main
             dataAccess.ExecuteSQLStatement(query, ref rowsAffected);
         }
         /// <summary>
-        /// gets all items associated with an invoice and returns it as a list
+        /// returns all items from itemdesc table and returns it as a list
         /// </summary>
         /// <param name="invoice"></param>
         /// <returns></returns>
-        public List<ItemDesc> getItems(Invoices invoice)
-        {
+        public List<ItemDesc> getItems() { 
 
             List<ItemDesc> items = new List<ItemDesc>();
 
             int rowsAffected = 0;
-            string query = "SELECT LineItems.ItemCode, ItemDesc.ItemDesc, ItemDesc.Cost " +
-                "FROM LineItems, ItemDesc " +
-                "WHERE LineItems.ItemCode = ItemDesc.ItemCode" +
-                    " AND LineItems.InvoiceNum = " + invoice.Num.ToString();
+            string query = "SELECT * FROM ItemDesc "; 
             DataRowCollection rows = dataAccess.ExecuteSQLStatement(query, ref rowsAffected).Tables[0].Rows;
             foreach (DataRow row in rows)
             {
                 items.Add(new ItemDesc(row.ItemArray[0].ToString(), row.ItemArray[1].ToString(), (decimal)row.ItemArray[2]));
             }
-
             return items;
 
         }
@@ -61,13 +56,13 @@ namespace GroupProject.Main
         /// deletes an invoice as well as it's items from the invoice table and the line items table
         /// </summary>
         /// <param name="invoice"></param>
-        public void DeleteItem(Invoices invoice)
+        public void DeleteItem(ItemDesc item)
         {
             int rowsAffected = 0;
-            string query = "DELETE From Invoices WHERE InvoiceNum = " + invoice.Num.ToString();
+            string query = "DELETE From ItemDesc WHERE ItemCode = " + item.Code;
             dataAccess.ExecuteSQLStatement(query, ref rowsAffected);
 
-            query = "DELETE FROM LineItems WHERE InvoiceNum = " + invoice.Num.ToString();
+            query = "DELETE FROM LineItems WHERE ItemCode = " + item.Code;
             dataAccess.ExecuteSQLStatement(query, ref rowsAffected);
         }
         /// <summary>
@@ -76,11 +71,11 @@ namespace GroupProject.Main
         /// <param name="item"></param>
         /// <param name="invoice"></param>
         /// <param name="lineItemNum"></param>
-        public void AddItem(ItemDesc item, Invoices invoice, int lineItemNum)
+        public void AddItem(ItemDesc item)
         {
             int rowsAffected = 0;
-            string query = "INSERT INTO LineItems (InvoiceNum, LineItemNum, ItemCode) Values (" +
-                invoice.Num.ToString() + "," + lineItemNum.ToString() + ",'" + item.Code + "')";
+            string query = "INSERT INTO ItemDesc (ItemCode,ItemDesc ,Cost) Values (" +
+                item.Code + "," + item.Desc + ",'" + item.Cost.ToString() + "')";
 
             dataAccess.ExecuteSQLStatement(query, ref rowsAffected);
 
@@ -97,6 +92,22 @@ namespace GroupProject.Main
             dataAccess.ExecuteSQLStatement(query, ref rowsAffected);
 
         }
+
+        /// <summary>
+        /// gets the max or most recently inserted invoice and returns it as an object in memory
+        /// </summary>
+        /// <returns></returns>
+        public ItemDesc getMaxItem()
+        {
+            int rowsAffected = 0;
+            string maxQuery = "SELECT MAX(ItemCode) FROM ItemDesc";
+            string maxItemID = (string)dataAccess.ExecuteSQLStatement(maxQuery, ref rowsAffected).Tables[0].Rows[0].ItemArray[0];
+            string query = "SELECT *  FROM ItemDesc WHERE ItemCode = " + maxItemID;
+            object[] row = dataAccess.ExecuteSQLStatement(query, ref rowsAffected).Tables[0].Rows[0].ItemArray;
+
+            return new ItemDesc((string)row[0], (string) row[1], (decimal)row[2]);
+        }
+
         /// <summary>
         /// updates the date for a given invoice
         /// </summary>
