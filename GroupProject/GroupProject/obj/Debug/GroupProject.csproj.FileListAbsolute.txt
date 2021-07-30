@@ -19,3 +19,24 @@ C:\Users\codys\Desktop\dotNetGroupProject\dotNetGroupProject\GroupProject\GroupP
 C:\Users\codys\Desktop\dotNetGroupProject\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\GroupProject.csproj.CoreCompileInputs.cache
 C:\Users\codys\Desktop\dotNetGroupProject\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\GroupProject.exe
 C:\Users\codys\Desktop\dotNetGroupProject\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\GroupProject.pdb
+G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\bin\Debug\GroupProject.exe.config
+G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\bin\Debug\GroupProject.exe
+G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\bin\Debug\GroupProject.pdb
+G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\GroupProject.csprojAssemblyReference.cache
+G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\Items\wndItems.g.cs
+G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\MainWindow.g.cs
+G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\Main\wndMain.g.cs
+G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\Search\wndSearch.g.cs
+G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\App.g.cs
+G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\GroupProject_MarkupCompile.cache
+G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\GroupProject_MarkupCompile.lref
+G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\Items\wndItems.baml
+G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\MainWindow.baml
+G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\Main\wndMain.baml
+G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\Search\wndSearch.baml
+G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\GroupProject.g.resources
+G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\GroupProject.Properties.Resources.resources
+G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\GroupProject.csproj.GenerateResource.cache
+G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\GroupProject.csproj.CoreCompileInputs.cache
+G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\GroupProject.exe
+G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\GroupProject.pdb

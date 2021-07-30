@@ -28,7 +28,7 @@ using System.Reflection;
         /// </summary>
         public clsDataAccess() {
 
-            sConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data source= " + Directory.GetCurrentDirectory() + "\\Books.mdb";
+            sConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data source= " + Directory.GetCurrentDirectory() + "\\Group Project DB\\Invoice.mdb";
 
 
         }

@@ -19,7 +19,7 @@ namespace GroupProject.Main
 
         public clsMainSQL() {
             ///connection string provided by course
-            string sConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Directory.GetCurrentDirectory() + "\\Group Project DB\\Invoice.accdb";
+            string sConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + Directory.GetCurrentDirectory() + "\\Group Project DB\\Invoice.mdb";
             dataAccess = new clsDataAccess(sConnectionString);
         }
         /// <summary>
