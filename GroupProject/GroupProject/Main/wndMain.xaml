@@ -64,7 +64,7 @@
 
                     <Label Margin =" 16"></Label>
                     <Label>Select Invoice Date:</Label>
-                    <DatePicker/>
+                    <DatePicker Name="datePicker"/>
                     <Button Content="Change Date"/>
 
                     <Label Margin =" 16"></Label>

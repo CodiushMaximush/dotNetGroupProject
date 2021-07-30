@@ -78,7 +78,8 @@ namespace GroupProject.Main
 
         private void addInvoice_Click(object sender, RoutedEventArgs e) {
 
-            mainLogic.CreateInvoice();
+          //  mainLogic.CreateInvoice();
+            
         }
         private void deleteItems_Click(object sender, RoutedEventArgs e)
         {
