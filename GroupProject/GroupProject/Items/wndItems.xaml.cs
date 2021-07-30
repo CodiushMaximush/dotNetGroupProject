@@ -1,4 +1,7 @@
-﻿using System;
+﻿using GroupProject.Items;
+using GroupProject.Main;
+using GroupProject.Search;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,13 +22,23 @@ namespace GroupProject.Items
     /// </summary>
     public partial class wndItems : Window
     {
+        /// <summary>
+        /// business logic class
+        /// </summary>
+        public clsItemsLogic itemsLogic;
+        
         public wndItems()
         {
-
-            //this line causes crashes
-           // DGEditItems.CanUserAddRows = false;
             InitializeComponent();
+            itemsLogic = new clsItemsLogic();
+
         }
+        public void SetUpIntialDataGrid() {
+           DGEditItems.ItemsSource = itemsLogic.mainSQL.getItems();
+           DGEditItems.CanUserAddRows = false; //To get rid of the extra row on the bottom of the DataGrid
+
+        }
+
         //To Do
         private void DGEditItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

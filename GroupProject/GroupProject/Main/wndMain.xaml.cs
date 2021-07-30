@@ -54,9 +54,6 @@ namespace GroupProject.Main
 
             invoiceItemsListView.ItemsSource = items;
 
-
-
-            
         }
         /// <summary>
         /// called when editItems menu item is clicked. Opens the 'wndItems.xaml'
@@ -67,13 +64,14 @@ namespace GroupProject.Main
         {
             //open edit items screen
             itemsWindow.Show();
+            itemsWindow.SetUpIntialDataGrid();
         }
 
         private void findInvoice_Click(object sender, RoutedEventArgs e)
         {
             //open search window screen
             searchWindow.Show();
-
+            
         }
 
         private void addInvoice_Click(object sender, RoutedEventArgs e) {
@@ -96,6 +94,9 @@ namespace GroupProject.Main
 
         }
 
-       
+        private void addItemButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

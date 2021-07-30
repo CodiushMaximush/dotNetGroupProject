@@ -1,12 +1,13 @@
 ﻿using GroupProject.Items;
 using GroupProject.Search;
+using GroupProject.Main;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GroupProject.Main
+namespace GroupProject.Items
 {
     public class clsItemsLogic
     {
@@ -26,7 +27,7 @@ namespace GroupProject.Main
         /// <summary>
         /// class containing abstracted SQL queries
         /// </summary>
-        private clsItemsSQL mainSQL = new clsItemsSQL();
+        public clsItemsSQL mainSQL = new clsItemsSQL();
         /// <summary>
         /// default constructor
         /// </summary>
