@@ -24,7 +24,7 @@ namespace GroupProject.Items
             dataAccess = new clsDataAccess(sConnectionString);
         }
         /// <summary>
-        /// inserts a new invoice into the database with today as the invoice date
+        /// inserts a new item into the database with today as the invoice date
         /// </summary>
         public void insertNewItem()
         {
@@ -53,7 +53,7 @@ namespace GroupProject.Items
 
         }
         /// <summary>
-        /// deletes an invoice as well as it's items from the invoice table and the line items table
+        /// deletes an item as well as it's items from the item table and the line items table
         /// </summary>
         /// <param name="invoice"></param>
         public void DeleteItem(ItemDesc item)
@@ -70,7 +70,7 @@ namespace GroupProject.Items
             }
         }
         /// <summary>
-        /// adds item to invoice in the database
+        /// adds item to table(itemcode, itemdesc, cost) in the database and its values
         /// </summary>
         /// <param name="item"></param>
         /// <param name="invoice"></param>
@@ -90,7 +90,7 @@ namespace GroupProject.Items
         }
 
         /// <summary>
-        /// gets the max or most recently inserted invoice and returns it as an object in memory
+        /// gets the max or most recently inserted items and returns it as an object in memory
         /// </summary>
         /// <returns></returns>
         public ItemDesc getMaxItem()
@@ -105,7 +105,7 @@ namespace GroupProject.Items
         }
 
         /// <summary>
-        /// updates the date for a given invoice
+        /// edits/update the date for a given item
         /// </summary>
         /// <param name="invoice"></param>
         /// <param name="dateTime"></param>

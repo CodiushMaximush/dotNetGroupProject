@@ -26,27 +26,48 @@ namespace GroupProject.Items
         /// business logic class
         /// </summary>
         public clsItemsLogic itemsLogic;
+        /// <summary>
+        /// item logic decimal select costs last
+        /// </summary>
         private decimal lastSelectCost;
+        /// <summary>
+        /// item logic  select costs last string
+        /// </summary>
         private string lastSelectCode;
+        /// <summary>
+        /// item logic string select description
+        /// </summary>
         private string lastSelectDesc;
+        /// <summary>
+        /// constructor for items and methods
+        /// </summary>
         public wndItems()
         {
             InitializeComponent();
             itemsLogic = new clsItemsLogic();
             HideNewItemControls();
         }
+        /// <summary>
+        /// refreshs the data grid
+        /// </summary>
         public void RefreshDataGrid() {
            DGEditItems.ItemsSource = itemsLogic.GetItems();
            DGEditItems.CanUserAddRows = false; //To get rid of the extra row on the bottom of the DataGrid
            DGEditItems.Columns[0].IsReadOnly = true; // primary key cannot be edited
         }
 
-        //To Do
+        /// <summary>
+        /// add click method
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
             ShowNewItemControls();
         }
-
+        /// <summary>
+        /// hiding form controls
+        /// </summary>
         private void HideNewItemControls() {
             LblNewItem.Visibility = Visibility.Hidden;
             txtItemCode.Visibility = Visibility.Hidden;
@@ -55,7 +76,9 @@ namespace GroupProject.Items
             BtnItemSubmit.Visibility = Visibility.Hidden;
 
         }
-
+        /// <summary>
+        /// showing item controls
+        /// </summary>
         private void ShowNewItemControls()
         {
             LblNewItem.Visibility = Visibility.Visible;
@@ -106,7 +129,11 @@ namespace GroupProject.Items
                 }
             }
         }
-        
+        /// <summary>
+        /// editing click button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -149,7 +176,11 @@ namespace GroupProject.Items
                 }
             }
         }
-
+        /// <summary>
+        /// editing changing fields when selecting a row/column.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DGEditItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int selectedItemIndex = DGEditItems.SelectedIndex;
@@ -166,7 +197,11 @@ namespace GroupProject.Items
 
             }
         }
-
+        /// <summary>
+        /// button for item submit 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnItemSubmit_Click(object sender, RoutedEventArgs e)
         {
             try
