@@ -85,11 +85,20 @@ namespace GroupProject.Items
         /// <param name="item"></param>
         public void AddItem(ItemDesc item)
         {
-            //insert selected item into database
-            itemSQL.AddItem(item);
-            //update our item list
-            availableItems = itemSQL.getItems();
-            dataUpdated?.Invoke();
+            try
+            {
+                //insert selected item into database
+                currentItem = item;
+                itemSQL.AddItem(currentItem);
+                //update our item list
+                availableItems = itemSQL.getItems();
+                dataUpdated?.Invoke();
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
         /// <summary>
         /// calls the getItems method from the clsitemsSQL class
@@ -97,6 +106,26 @@ namespace GroupProject.Items
         /// <returns></returns>
         public List<ItemDesc> GetItems() {
             return itemSQL.getItems();
-        } 
+        }
+        
+        public void EditItem(ItemDesc item, string Code) {
+            try
+            {
+               
+                currentItem = item;
+                itemSQL.EditItem(currentItem, Code);
+                currentItem = null;
+                dataUpdated?.Invoke();
+            }
+            catch (InvalidOperationException ioe)
+            {
+                throw new InvalidOperationException(ioe.Message);
+                
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }

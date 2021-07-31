@@ -77,12 +77,16 @@ namespace GroupProject.Items
         /// <param name="lineItemNum"></param>
         public void AddItem(ItemDesc item)
         {
-            int rowsAffected = 0;
-            string query = "INSERT INTO ItemDesc (ItemCode,ItemDesc ,Cost) Values (" +
-                item.Code + "," + item.Desc + ",'" + item.Cost.ToString() + "')";
-
-            dataAccess.ExecuteSQLStatement(query, ref rowsAffected);
-
+            try
+            {
+                int rowsAffected = 0;
+                string query = $"INSERT INTO ItemDesc (ItemCode, ItemDesc, Cost) VALUES ('{item.Code}', '{item.Desc}', {item.Cost});";
+                dataAccess.ExecuteSQLStatement(query, ref rowsAffected);
+            }
+            catch (Exception e)
+            {
+                  throw new Exception(e.Message);
+            }
         }
 
         /// <summary>
@@ -105,12 +109,29 @@ namespace GroupProject.Items
         /// </summary>
         /// <param name="invoice"></param>
         /// <param name="dateTime"></param>
-        public void UpdateItem(Invoices invoice, DateTime dateTime)
+        public void EditItem(ItemDesc item, string Code)
         {
-            int rowsAffected = 0;
-            string parsedDate = dateTime.ToString("d", CultureInfo.CreateSpecificCulture("en-US"));
-            string query = "UPDATE Invoices SET InvoiceDate = '#" + parsedDate + "#' WHERE InvoiceNum = " + invoice.Num.ToString();
-            dataAccess.ExecuteSQLStatement(query, ref rowsAffected);
+            try
+            {
+                int rowsAffected = 0;
+                string query = $"UPDATE ItemDesc SET ItemDesc = '{item.Desc}' WHERE ItemCode = '{Code}';";
+                dataAccess.ExecuteSQLStatement(query, ref rowsAffected);
+                query = $"UPDATE ItemDesc SET Cost = '${item.Cost}' WHERE ItemCode = '{Code}';";
+                dataAccess.ExecuteSQLStatement(query, ref rowsAffected);
+            }
+            catch (Exception e)
+            {
+                if (e.Message == "clsDataAccess.ExecuteSQLStatement -> Cannot find table 0.")
+                {
+                    int rowsAffected = 0;
+                    string query = $"UPDATE ItemDesc SET Cost = '${item.Cost}' WHERE ItemCode = '{Code}';";
+                    dataAccess.ExecuteSQLStatement(query, ref rowsAffected);
+                }
+                else
+                {
+                    throw new Exception(e.Message);
+                }
+            }
         }
         /// <summary>
         /// gets all available items available to add to database
