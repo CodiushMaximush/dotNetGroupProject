@@ -107,7 +107,11 @@ namespace GroupProject.Items
         public List<ItemDesc> GetItems() {
             return itemSQL.getItems();
         }
-        
+        /// <summary>
+        /// editing items in the database
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="Code"></param>
         public void EditItem(ItemDesc item, string Code) {
             try
             {
