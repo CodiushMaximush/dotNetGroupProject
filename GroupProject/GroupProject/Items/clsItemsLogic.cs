@@ -1,153 +1,135 @@
-﻿using System;
-using System.Data;
-using System.Data.OleDb;
-using System.IO;
-using System.Reflection;
+﻿using GroupProject.Items;
+using GroupProject.Search;
+using GroupProject.Main;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-
-
-
-
-public class clsItemsLogic
+namespace GroupProject.Items
 {
-
-    public string sConnectionString;
-
-
-
-
-    public clsItemsLogic()
+    public class clsItemsLogic
     {
+        /// <summary>
+        /// called whenever UI needs to be updated because data changed. 
+        /// </summary>
+        public Action dataUpdated;
 
-        sConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data source= " + Directory.GetCurrentDirectory() + "\\Group Project DB\\Invoice.mdb";
-    }
-
-
-
-    /// <summary>
-    /// This method takes an SQL statment that is passed in and executes it.  The resulting values
-    /// are returned in a DataSet.  The number of rows returned from the query will be put into
-    /// the reference parameter iRetVal.
-    /// </summary>
-    /// <param name="sSQL">The SQL statement to be executed.</param>
-    /// <param name="iRetVal">Reference parameter that returns the number of selected rows.</param>
-    /// <returns>Returns a DataSet that contains the data from the SQL statement.</returns>
-    public DataSet ExecuteSQLStatement(string sSQL, ref int iRetVal)
-    {
-        try
+        /// <summary>
+        /// cursor object for current invoice
+        /// </summary>
+        public ItemDesc currentItem;
+        /// <summary>
+        /// list of items available in database
+        /// </summary>
+        public List<ItemDesc> availableItems;
+        /// <summary>
+        /// class containing abstracted SQL queries
+        /// </summary>
+        private clsItemsSQL itemSQL = new clsItemsSQL();
+        /// <summary>
+        /// default constructor
+        /// </summary>
+        public clsItemsLogic()
         {
-            //Create a new DataSet
-            DataSet ds = new DataSet();
+            availableItems = itemSQL.GetAllItems();
 
-            using (OleDbConnection conn = new OleDbConnection(sConnectionString))
+        }
+        /// <summary>
+        /// adds a new invoice to the database then sets it to the current invoice. also invokes dataupdated
+        /// </summary>
+        public void CreateItem()
+        {
+            //insert a new invoice into the database
+            itemSQL.insertNewItem();
+            //set currentInvoice to newest invoice from database
+            currentItem = itemSQL.getMaxItem();
+            dataUpdated?.Invoke();
+        }
+        /// <summary>
+        /// deletes current invoice from the database and sets currentInvoice to null, triggers dataupdated
+        /// </summary>
+        public void DeleteItem(ItemDesc item)
+        {
+            try
             {
-                using (OleDbDataAdapter adapter = new OleDbDataAdapter())
+                currentItem = item;
+                List<Invoices> InvoiceItem = itemSQL.GetInvoicesFromItem(item);
+                //delete current invoice from database
+                if (InvoiceItem.Count > 0)
                 {
-
-                    //Open the connection to the database
-                    conn.Open();
-
-                    //Add the information for the SelectCommand using the SQL statement and the connection object
-                    adapter.SelectCommand = new OleDbCommand(sSQL, conn);
-                    adapter.SelectCommand.CommandTimeout = 0;
-
-                    //Fill up the DataSet with data
-                    adapter.Fill(ds);
+                    string err = "Error cannot delete item selected it is on the following invoices:\n";
+                    foreach (Invoices inv in InvoiceItem) {
+                        err += $"Invoice number {inv.Num} with total cost {inv.TotalCost} created on Date {inv.Date.ToString()}\n";
+                    }
+                    throw new InvalidOperationException(err);
                 }
+                itemSQL.DeleteItem(currentItem);        
+                currentItem = null;
+                dataUpdated?.Invoke();
             }
-
-            //Set the number of values returned
-            iRetVal = ds.Tables[0].Rows.Count;
-
-            //return the DataSet
-            return ds;
+            catch (InvalidOperationException ioe)
+            {
+                throw new InvalidOperationException(ioe.Message);
+               
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
-        catch (Exception ex)
+        /// <summary>
+        /// adds item to invoice selected from a combobox, triggers dataupdated
+        /// </summary>
+        /// <param name="item"></param>
+        public void AddItem(ItemDesc item)
         {
-            throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            try
+            {
+                //insert selected item into database
+                currentItem = item;
+                itemSQL.AddItem(currentItem);
+                //update our item list
+                availableItems = itemSQL.getItems();
+                dataUpdated?.Invoke();
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+        /// <summary>
+        /// calls the getItems method from the clsitemsSQL class
+        /// </summary>
+        /// <returns></returns>
+        public List<ItemDesc> GetItems() {
+            return itemSQL.getItems();
+        }
+        /// <summary>
+        /// editing items in the database
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="Code"></param>
+        public void EditItem(ItemDesc item, string Code) {
+            try
+            {
+               
+                currentItem = item;
+                itemSQL.EditItem(currentItem, Code);
+                currentItem = null;
+                dataUpdated?.Invoke();
+            }
+            catch (InvalidOperationException ioe)
+            {
+                throw new InvalidOperationException(ioe.Message);
+                
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
     }
-
-    /// <summary>
-    /// This method takes an SQL statment that is passed in and executes it.  The resulting single 
-    /// value is returned.
-    /// </summary>
-    /// <param name="sSQL">The SQL statement to be executed.</param>
-    /// <returns>Returns a string from the scalar SQL statement.</returns>
-    public string ExecuteScalarSQL(string sSQL)
-    {
-        try
-        {
-            //Holds the return value
-            object obj;
-
-            using (OleDbConnection conn = new OleDbConnection(sConnectionString))
-            {
-                using (OleDbDataAdapter adapter = new OleDbDataAdapter())
-                {
-
-                    //Open the connection to the database
-                    conn.Open();
-
-                    //Add the information for the SelectCommand using the SQL statement and the connection object
-                    adapter.SelectCommand = new OleDbCommand(sSQL, conn);
-                    adapter.SelectCommand.CommandTimeout = 0;
-
-                    //Execute the scalar SQL statement
-                    obj = adapter.SelectCommand.ExecuteScalar();
-                }
-            }
-
-            //See if the object is null
-            if (obj == null)
-            {
-                //Return a blank
-                return "";
-            }
-            else
-            {
-                //Return the value
-                return obj.ToString();
-            }
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-        }
-    }
-
-    /// <summary>
-    /// This method takes an SQL statment that is a non query and executes it.
-    /// </summary>
-    /// <param name="sSQL">The SQL statement to be executed.</param>
-    /// <returns>Returns the number of rows affected by the SQL statement.</returns>
-    public int ExecuteNonQuery(string sSQL)
-    {
-        try
-        {
-            //Number of rows affected
-            int iNumRows;
-
-            using (OleDbConnection conn = new OleDbConnection(sConnectionString))
-            {
-                //Open the connection to the database
-                conn.Open();
-
-                //Add the information for the SelectCommand using the SQL statement and the connection object
-                OleDbCommand cmd = new OleDbCommand(sSQL, conn);
-                cmd.CommandTimeout = 0;
-
-                //Execute the non query SQL statement
-                iNumRows = cmd.ExecuteNonQuery();
-            }
-
-            //return the number of rows affected
-            return iNumRows;
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-        }
-    }
-
 }

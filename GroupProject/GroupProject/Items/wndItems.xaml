@@ -12,5 +12,10 @@
         <Button x:Name="BtnDelete" Content="Delete Item" HorizontalAlignment="Left" Margin="409,272,0,0" VerticalAlignment="Top" Width="130" Height="35" Click="BtnDelete_Click"/>
         <Button x:Name="BtnAdd" Content="Add Item" HorizontalAlignment="Left" Margin="409,214,0,0" VerticalAlignment="Top" Width="130" Height="35" Click="BtnAdd_Click"/>
         <Button x:Name="BtnEdit" Content="Edit Item" HorizontalAlignment="Left" Margin="409,330,0,0" VerticalAlignment="Top" Width="130" Height="35" Click="BtnEdit_Click"/>
+        <TextBox x:Name="txtItemCode" HorizontalAlignment="Left" Height="23" Margin="592,200,0,0" TextWrapping="Wrap" Text="Enter Item Code" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtItemDesc" HorizontalAlignment="Left" Height="23" Margin="592,226,0,0" TextWrapping="Wrap" Text="Enter Item Description" VerticalAlignment="Top" Width="168"/>
+        <TextBox x:Name="txtItemCost" HorizontalAlignment="Left" Height="34" Margin="592,254,0,0" TextWrapping="Wrap" Text="Enter Item Cost(without dollar sign)" VerticalAlignment="Top" Width="168"/>
+        <Label x:Name="LblNewItem" Content="Enter New Item" HorizontalAlignment="Left" Margin="592,157,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="BtnItemSubmit" Content="Submit new item" HorizontalAlignment="Left" Margin="619,315,0,0" VerticalAlignment="Top" Width="141" Click="BtnItemSubmit_Click"/>
     </Grid>
 </Window>

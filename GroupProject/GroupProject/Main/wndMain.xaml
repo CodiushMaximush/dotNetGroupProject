@@ -53,7 +53,7 @@
                         <Label>Available Items:</Label>
                         <ComboBox Name="availableItems" ></ComboBox>
                      
-                    <Button x:Name="addItemButton">Add Item</Button>
+                    <Button x:Name="addItemButton" Click="addItemButton_Click">Add Item</Button>
 
                     <Label Margin =" 16"></Label>
 
