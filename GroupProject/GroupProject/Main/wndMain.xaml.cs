@@ -64,7 +64,7 @@ namespace GroupProject.Main
         {
             //open edit items screen
             itemsWindow.Show();
-            itemsWindow.SetUpIntialDataGrid();
+            itemsWindow.RefreshDataGrid();
         }
 
         private void findInvoice_Click(object sender, RoutedEventArgs e)

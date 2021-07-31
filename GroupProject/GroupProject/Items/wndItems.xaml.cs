@@ -33,8 +33,8 @@ namespace GroupProject.Items
             itemsLogic = new clsItemsLogic();
 
         }
-        public void SetUpIntialDataGrid() {
-           DGEditItems.ItemsSource = itemsLogic.mainSQL.getItems();
+        public void RefreshDataGrid() {
+           DGEditItems.ItemsSource = itemsLogic.GetItems();
            DGEditItems.CanUserAddRows = false; //To get rid of the extra row on the bottom of the DataGrid
 
         }
@@ -54,14 +54,34 @@ namespace GroupProject.Items
         {
             try
             {
-                if (DGEditItems.SelectedIndex == -1)    // Selection is empty
+                int selectedItemIndex = DGEditItems.SelectedIndex;
+                if (selectedItemIndex == -1)    // Selection is empty
                 {
                     throw new InvalidOperationException("Cannot delete item, no item selected");
+                }
+                else
+                {
+                    ItemDesc selectedItem = null;
+                    if (DGEditItems.SelectedItem is ItemDesc)
+                    {
+                        selectedItem = (ItemDesc)DGEditItems.SelectedItem;
+                    }
+                    itemsLogic.DeleteItem(selectedItem);
                 }
             }
             catch (InvalidOperationException ioe)
             {
                 MessageBox.Show(ioe.Message);
+            }
+            catch (Exception ex) {
+                if (ex.Message == "clsDataAccess.ExecuteSQLStatement -> Cannot find table 0.") {
+                    MessageBox.Show("Item has been deleted");
+                    RefreshDataGrid();
+                }
+                else
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
         //To Do
@@ -69,7 +89,8 @@ namespace GroupProject.Items
         {
             try
             {
-                if (DGEditItems.SelectedIndex == -1)    // Selection is empty
+                int selectedItemIndex = DGEditItems.SelectedIndex;
+                if (selectedItemIndex == -1)    // Selection is empty
                 {
                     throw new InvalidOperationException("Cannot edit item, no item selected");
                 }

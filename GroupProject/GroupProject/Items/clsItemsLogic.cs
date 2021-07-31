@@ -27,13 +27,13 @@ namespace GroupProject.Items
         /// <summary>
         /// class containing abstracted SQL queries
         /// </summary>
-        public clsItemsSQL mainSQL = new clsItemsSQL();
+        private clsItemsSQL itemSQL = new clsItemsSQL();
         /// <summary>
         /// default constructor
         /// </summary>
         public clsItemsLogic()
         {
-            availableItems = mainSQL.GetAllItems();
+            availableItems = itemSQL.GetAllItems();
 
         }
         /// <summary>
@@ -42,21 +42,42 @@ namespace GroupProject.Items
         public void CreateItem()
         {
             //insert a new invoice into the database
-            mainSQL.insertNewItem();
+            itemSQL.insertNewItem();
             //set currentInvoice to newest invoice from database
-            currentItem = mainSQL.getMaxItem();
+            currentItem = itemSQL.getMaxItem();
             dataUpdated?.Invoke();
         }
         /// <summary>
         /// deletes current invoice from the database and sets currentInvoice to null, triggers dataupdated
         /// </summary>
-        public void DeleteItem()
+        public void DeleteItem(ItemDesc item)
         {
-            //delete current invoice from database
-            mainSQL.DeleteItem(currentItem);        // to DO: DO NOT DELETE IF ITEM IS IN INVOICE
-            //set currentInvoice to Empty
-            currentItem = null;
-            dataUpdated?.Invoke();
+            try
+            {
+                currentItem = item;
+                List<Invoices> InvoiceItem = itemSQL.GetInvoicesFromItem(item);
+                //delete current invoice from database
+                if (InvoiceItem.Count > 0)
+                {
+                    string err = "Error cannot delete item selected it is on the following invoices:\n";
+                    foreach (Invoices inv in InvoiceItem) {
+                        err += $"Invoice number {inv.Num} with total cost {inv.TotalCost} created on Date {inv.Date.ToString()}\n";
+                    }
+                    throw new InvalidOperationException(err);
+                }
+                itemSQL.DeleteItem(currentItem);        
+                currentItem = null;
+                dataUpdated?.Invoke();
+            }
+            catch (InvalidOperationException ioe)
+            {
+                throw new InvalidOperationException(ioe.Message);
+               
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
         /// <summary>
         /// adds item to invoice selected from a combobox, triggers dataupdated
@@ -65,10 +86,17 @@ namespace GroupProject.Items
         public void AddItem(ItemDesc item)
         {
             //insert selected item into database
-            mainSQL.AddItem(item);
+            itemSQL.AddItem(item);
             //update our item list
-            availableItems = mainSQL.getItems();
+            availableItems = itemSQL.getItems();
             dataUpdated?.Invoke();
         }
+        /// <summary>
+        /// calls the getItems method from the clsitemsSQL class
+        /// </summary>
+        /// <returns></returns>
+        public List<ItemDesc> GetItems() {
+            return itemSQL.getItems();
+        } 
     }
 }

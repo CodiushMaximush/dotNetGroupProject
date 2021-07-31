@@ -58,12 +58,16 @@ namespace GroupProject.Items
         /// <param name="invoice"></param>
         public void DeleteItem(ItemDesc item)
         {
-            int rowsAffected = 0;
-            string query = "DELETE From ItemDesc WHERE ItemCode = " + item.Code;
-            dataAccess.ExecuteSQLStatement(query, ref rowsAffected);
-
-            query = "DELETE FROM LineItems WHERE ItemCode = " + item.Code;
-            dataAccess.ExecuteSQLStatement(query, ref rowsAffected);
+            try
+            {
+                int rowsAffected = 0;
+                string query = $"DELETE From ItemDesc WHERE ItemCode = '{item.Code}';";
+                dataAccess.ExecuteSQLStatement(query, ref rowsAffected);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
         /// <summary>
         /// adds item to invoice in the database
@@ -80,18 +84,6 @@ namespace GroupProject.Items
             dataAccess.ExecuteSQLStatement(query, ref rowsAffected);
 
         }
-        /// <summary>
-        ///deletes an item from an invoice
-        /// </summary>
-        /// <param name="item"></param>
-        /// <param name="invoice"></param>
-        public void DeleteInvoiceItem(ItemDesc item, Invoices invoice)
-        {
-            int rowsAffected = 0;
-            string query = "DELETE From LineItems WHERE ItemCode = " + item.Code + "AND InvoiceNum = " + invoice.Num;
-            dataAccess.ExecuteSQLStatement(query, ref rowsAffected);
-
-        }
 
         /// <summary>
         /// gets the max or most recently inserted invoice and returns it as an object in memory
@@ -102,7 +94,7 @@ namespace GroupProject.Items
             int rowsAffected = 0;
             string maxQuery = "SELECT MAX(ItemCode) FROM ItemDesc";
             string maxItemID = (string)dataAccess.ExecuteSQLStatement(maxQuery, ref rowsAffected).Tables[0].Rows[0].ItemArray[0];
-            string query = "SELECT *  FROM ItemDesc WHERE ItemCode = " + maxItemID;
+            string query = $"SELECT *  FROM ItemDesc WHERE ItemCode = '{maxItemID}';";
             object[] row = dataAccess.ExecuteSQLStatement(query, ref rowsAffected).Tables[0].Rows[0].ItemArray;
 
             return new ItemDesc((string)row[0], (string) row[1], (decimal)row[2]);
@@ -128,13 +120,39 @@ namespace GroupProject.Items
         {
             List<ItemDesc> items = new List<ItemDesc>();
             int rowsAffected = 0;
-            string query = "SELECT ItemCode, ItemDesc, Cost from ItemDesc";
+            string query = "SELECT * FROM ItemDesc";
             DataRowCollection rows = dataAccess.ExecuteSQLStatement(query, ref rowsAffected).Tables[0].Rows;
             foreach (DataRow row in rows)
             {
                 items.Add(new ItemDesc(row.ItemArray[0].ToString(), row.ItemArray[1].ToString(), (decimal)row.ItemArray[2]));
             }
             return items;
+        }
+        /// <summary>
+        /// returns all invoices that contain item from argument
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns>list of invoices</returns>
+        public List<Invoices> GetInvoicesFromItem(ItemDesc item) {
+            try
+            {
+                List<Invoices> invoices = new List<Invoices>();
+                int rowsAffected = 0;
+                string query = $"SELECT Invoices.InvoiceNum, InvoiceDate, TotalCost, ItemCode  FROM Invoices INNER JOIN LineItems ON LineItems.InvoiceNum = Invoices.InvoiceNum WHERE ItemCode = '{item.Code}';";
+                DataRowCollection rows = dataAccess.ExecuteSQLStatement(query, ref rowsAffected).Tables[0].Rows;
+                foreach (DataRow row in rows)
+                {
+                    invoices.Add(new Invoices(int.Parse(row[0].ToString()), DateTime.Parse(row[1].ToString()), decimal.Parse(row[2].ToString())));
+                }
+                return invoices;
+
+            }
+            catch (FormatException Fe)
+            {
+
+                throw new FormatException(Fe.Message);
+            }
+
         }
     }
 }
