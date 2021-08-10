@@ -107,3 +107,40 @@ Search
 - All methods need a try catch block
 
 - All business logic has been put into the classes that are just supposed to be SQL statements.
+
+
+
+Main
+
+- I can only add 1 type of item to an invoice.  I should be able to select an item and click the Add item button multiple time for the same item.
+
+- When I create a new invoice, the total charge is always zero in the search screen so it is not being saved to the db.
+
+- Main window has business logic behind the UI.
+
+- When creating an invoice, the Invoice number is not given
+
+- Requirement to have a menu control to get to the search and edit screens.
+
+- After an invoice is selected it should be displayed in read only mode and an edit button needs to be clicked.
+
+- After a new invoice is created and saved, it should be displayed in read only mode.
+
+- Main window items need to be refreshed after items have been updated/deleted/added on the items window.
+
+- Shouldn't be able to save an invoice without entering a date.
+
+- Didn't meet the requirement "An invoice date will also be assigned by the user."
+
+- After an invoice is searched for and selected, the main window should display it in a read only mode, then an edit button needs to be clicked to edit it.
+
+ 
+Items
+
+- When deleting an item on the def table form, a requirement says “Instead warn them with a message that tells the user which invoices that item is used on.”.  Your message doesn’t tell which invoices it is on.
+
+- When deleting an item on the def table form, if the item exists on invoices, then distinct invoices should be displayed.
+
+- Need to validate user input on the update def table window.  If I enter very long strings the program raises an exception.
+
+- Def table window has business logic behind the UI.
