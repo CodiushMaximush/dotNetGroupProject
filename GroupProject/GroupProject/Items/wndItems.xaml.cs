@@ -112,6 +112,9 @@ namespace GroupProject.Items
                         selectedItem = (ItemDesc)DGEditItems.SelectedItem;
                     }
                     itemsLogic.DeleteItem(selectedItem);
+                    MessageBox.Show("Item has been deleted");
+                    RefreshDataGrid();
+
                 }
             }
             catch (InvalidOperationException ioe)
@@ -154,6 +157,9 @@ namespace GroupProject.Items
                         selectedItem = (ItemDesc)DGEditItems.SelectedItem;
                     }
                     itemsLogic.EditItem(selectedItem, lastSelectCode);
+                    MessageBox.Show("Item updated");
+                    RefreshDataGrid();
+
                 }
 
             }
@@ -208,6 +214,9 @@ namespace GroupProject.Items
             {
                 ItemDesc newItem = new ItemDesc(txtItemCode.Text,txtItemDesc.Text,decimal.Parse(txtItemCost.Text));
                 itemsLogic.AddItem(newItem);
+                MessageBox.Show("Item added");
+                HideNewItemControls();
+                RefreshDataGrid();
 
             }
             catch (FormatException fe)

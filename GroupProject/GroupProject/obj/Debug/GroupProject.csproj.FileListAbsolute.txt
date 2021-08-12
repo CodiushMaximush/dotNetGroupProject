@@ -40,3 +40,5 @@ G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project
 G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\GroupProject.csproj.CoreCompileInputs.cache
 G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\GroupProject.exe
 G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\GroupProject.pdb
+G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\ShinyBlue.baml
+G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\App.baml
