@@ -16,7 +16,7 @@
             <TextBox AcceptsReturn="True" />
 
             <StackPanel>
-                <GroupBox Header="Details" Height="150">
+                <GroupBox x:Name="detailsBox" Header="Details" Height="159">
                     <StackPanel Margin="16">
                         <StackPanel Orientation="Horizontal">
                             <Label>Invoice Number: </Label>
@@ -30,11 +30,12 @@
                             <Label>Total Cost: </Label>
                             <Label Name="currentInvoiceCost"></Label>
                         </StackPanel>
-                       
+                        <Button x:Name="unlockControlsButton" Content="Unlock/Lock Controls" Click="UnlockControlsButton_Click"/>
+
                     </StackPanel>
 
                 </GroupBox>
-            <GroupBox Header="Items" DockPanel.Dock="Left"  Height="245">
+            <GroupBox x:Name="invoiceItemBox" Header="Items" DockPanel.Dock="Left"  Height="245">
                 <ListView  Name="invoiceItemsListView" >
                     <ListView.View>
                         <GridView>
@@ -48,7 +49,7 @@
             </GroupBox>
 
             </StackPanel>
-            <GroupBox Header="Controls" DockPanel.Dock="Right">
+            <GroupBox x:Name="invoiceControls" Header="Controls" DockPanel.Dock="Right" IsEnabled="False">
                 <StackPanel Margin="16" >
                         <Label>Available Items:</Label>
                         <ComboBox Name="availableItems" ></ComboBox>
@@ -65,7 +66,7 @@
                     <Label Margin =" 16"></Label>
                     <Label>Select Invoice Date:</Label>
                     <DatePicker Name="datePicker"/>
-                    <Button Content="Change Date"/>
+                    <Button x:Name="changeDateButton" Content="Change Date" Click="Button_Click"/>
 
                     <Label Margin =" 16"></Label>
 

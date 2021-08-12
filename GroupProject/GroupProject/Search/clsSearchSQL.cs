@@ -43,14 +43,15 @@ namespace GroupProject.Search
                 DataRowCollection rows = DataAccess.ExecuteSQLStatement(query, ref rowsAffected).Tables[0].Rows;
                 foreach (DataRow row in rows)
                 {
-                    Invoices.Add(new Invoices((int)row.ItemArray[0], DateTime.Parse(row.ItemArray[1].ToString()), (decimal)row.ItemArray[2]));
+                    Invoices.Add(new Invoices(int.Parse(row.ItemArray[0].ToString()), DateTime.Parse(row.ItemArray[1].ToString()), decimal.Parse(row.ItemArray[2].ToString())));
                 }
 
                 return Invoices;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+                throw ex;
+               // MessageBox.Show(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
 
             return null;

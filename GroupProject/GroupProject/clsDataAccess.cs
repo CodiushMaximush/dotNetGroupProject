@@ -65,11 +65,10 @@ using System.Reflection;
                     }
                 }
 
-                //Set the number of values returned
-                iRetVal = ds.Tables[0].Rows.Count;
+            
 
-                //return the DataSet
-                return ds;
+            //return the DataSet
+            return ds;
 			}
 			catch (Exception ex)
 			{

@@ -18,5 +18,9 @@ namespace GroupProject.Items
             Desc = desc;
             Cost = cost;
         }
+        public override string ToString()
+        {
+            return Desc;
+        }
     }
 }

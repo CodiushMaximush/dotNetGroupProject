@@ -28,7 +28,7 @@ namespace GroupProject.Main
         public void insertNewInvoice() {
             int rowsAffected = 0;
             string nowDate = DateTime.Now.ToString("d", CultureInfo.CreateSpecificCulture("en-US"));
-            string query = "INSERT INTO Invoices(InvoiceDate, TotalCost) Values('#" + nowDate +"#', 0)";
+            string query = "INSERT INTO Invoices(InvoiceDate, TotalCost) Values(#" + nowDate +"#, 0)";
             dataAccess.ExecuteSQLStatement(query, ref rowsAffected);
         }
         /// <summary>
@@ -42,7 +42,7 @@ namespace GroupProject.Main
             string query = "SELECT InvoiceNum, InvoiceDate, TotalCost FROM Invoices WHERE InvoiceNum = " + maxInvoiceID.ToString();
             object[] row = dataAccess.ExecuteSQLStatement(query, ref rowsAffected).Tables[0].Rows[0].ItemArray;
 
-            return new Invoices((int)row[0], DateTime.Parse(row[1].ToString()), (decimal)row[2]);
+            return new Invoices((int)row[0], DateTime.Parse(row[1].ToString()), decimal.Parse(row[2].ToString()));
         }
         /// <summary>
         /// gets all items associated with an invoice and returns it as a list
@@ -100,7 +100,7 @@ namespace GroupProject.Main
         /// <param name="invoice"></param>
         public void DeleteInvoiceItem(ItemDesc item, Invoices invoice) {
             int rowsAffected = 0;
-            string query = "DELETE From LineItems WHERE ItemCode = " + item.Code + "AND InvoiceNum = " + invoice.Num;
+            string query = "DELETE From LineItems WHERE ItemCode = '" + item.Code + "' AND InvoiceNum = " + invoice.Num;
             dataAccess.ExecuteSQLStatement(query, ref rowsAffected);
 
         }
@@ -112,8 +112,19 @@ namespace GroupProject.Main
         public void UpdateInvoiceDate(Invoices invoice, DateTime dateTime) {
             int rowsAffected = 0;
             string parsedDate = dateTime.ToString("d", CultureInfo.CreateSpecificCulture("en-US"));
-            string query = "UPDATE Invoices SET InvoiceDate = '#" + parsedDate + "#' WHERE InvoiceNum = " + invoice.Num.ToString();
+            string query = "UPDATE Invoices SET InvoiceDate = #" + parsedDate + "# WHERE InvoiceNum = " + invoice.Num.ToString();
             dataAccess.ExecuteSQLStatement(query, ref rowsAffected);      
+        }
+        /// <summary>
+        /// updates the cost for a given invoice
+        /// </summary>
+        /// <param name="invoice"></param>
+        /// <param name="cost"></param>
+        public void UpdateInvoiceCost(Invoices invoice, decimal cost)
+        {
+            int rowsAffected = 0;
+            string query = "UPDATE Invoices SET TotalCost = " + cost + " WHERE InvoiceNum = " + invoice.Num.ToString();
+            dataAccess.ExecuteSQLStatement(query, ref rowsAffected);
         }
         /// <summary>
         /// gets all available items available to add to database
