@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,6 +25,18 @@ namespace GroupProject.Search
         /// </summary>
         public clsSearchLogic searchLogic;
 
+        public List<Invoices> InvoicesList;
+
+        public List<decimal> CostsList;
+
+        public List<Invoices> FilteredInvoicesList;
+
+        public int SelectedNum;
+
+        public DateTime SelectedDate;
+
+        public decimal SelectedCost;
+
         /// <summary>
         /// Search Window Constructor.
         /// </summary>
@@ -31,6 +44,28 @@ namespace GroupProject.Search
         {
             InitializeComponent();
             searchLogic = new clsSearchLogic();
+            SelectedNum = -1;
+            SelectedCost = -1;
+            SelectedDate = DateTime.Now;
+            InvoicesList = new List<Invoices>();
+            InvoicesList = searchLogic.GetAllInvoices();
+            CostsList = new List<decimal>();
+
+            // Fill invoice number combo box and add items to costs list.
+            foreach (Invoices invoice in InvoicesList)
+            {
+                cbInvoiceNumber.Items.Add(invoice.Num);
+                CostsList.Add(invoice.TotalCost);
+            }
+
+            // Sort the costs list.
+            CostsList.Sort();
+
+            // Add costs list items to charges combo box.
+            foreach (decimal cost in CostsList)
+            {
+                cbTotalCharges.Items.Add(cost);
+            }
         }
 
         /// <summary>
@@ -42,14 +77,17 @@ namespace GroupProject.Search
         {
             try
             {
+                // Check if a selection has been made.
                 if (cbInvoiceNumber.SelectedIndex != -1)
                 {
-                    // Filter list based on cbInvoiceNumber.SelectedItem
+                    // Set the SelectedNum variable to the selected item.
+                    SelectedNum = (int)cbInvoiceNumber.SelectedItem;
                 }
             }
             catch (Exception ex)
             {
-                // throw appropriate exception
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                    MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
 
@@ -62,14 +100,17 @@ namespace GroupProject.Search
         {
             try
             {
+                // Check if a selction has been made.
                 if (cbTotalCharges.SelectedIndex != -1)
                 {
-                    // Filter list based on cbTotalCharges.SelectedItem
+                    // Set the SelectedCost variable to the selected item.
+                    SelectedCost = (decimal)cbTotalCharges.SelectedItem;
                 }
             }
             catch (Exception ex)
             {
-                // throw appropriate exception
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                    MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
 
@@ -82,14 +123,17 @@ namespace GroupProject.Search
         {
             try
             {
+                // Check if a selection has been made.
                 if (dpInvoiceDatePicker.SelectedDate != null)
                 {
-                    // Filter list based on dpInvoiceDatePicker.SelectedDate
+                    // Set SelectedDate variable to the selected date item.
+                    SelectedDate = (DateTime)dpInvoiceDatePicker.SelectedDate;
                 }
             }
             catch (Exception ex)
             {
-                // throw appropriate exception
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                    MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
 
@@ -108,7 +152,8 @@ namespace GroupProject.Search
             }
             catch(Exception ex)
             {
-                // Throw exception
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                    MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
 
@@ -121,16 +166,52 @@ namespace GroupProject.Search
         {
             try
             {
+                // Reset the selections.
                 dpInvoiceDatePicker.SelectedDate = null;
                 cbInvoiceNumber.SelectedIndex = -1;
                 cbTotalCharges.SelectedIndex = -1;
-                // Fill combo boxes with unfiltered data
+                SelectedNum = -1;
+                SelectedDate = DateTime.Now;
+                SelectedCost = -1;
+
+                lvInvoiceList.ItemsSource = InvoicesList;
+                //// Refill the list
+                //foreach(Invoices invoice in InvoicesList)
+                //{
+                //    lvInvoiceList.Items.Add(invoice);
+                //}
             }
             catch (Exception ex)
             {
-                // Throw exception
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                    MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
 
+        //private void FillInvoiceList()
+        //{
+        //    foreach (Invoices invoice in InvoicesList)
+        //    {
+        //        lvInvoiceList.Items.Add(invoice);
+        //    }
+        //}
+
+        /// <summary>
+        /// Error handling method.
+        /// </summary>
+        /// <param name="sClass"></param>
+        /// <param name="sMethod"></param>
+        /// <param name="sMessage"></param>
+        private void HandleError(string sClass, string sMethod, string sMessage)
+        {
+            try
+            {
+                MessageBox.Show(sClass + "." + sMethod + " -> " + sMessage);
+            }
+            catch (Exception ex)
+            {
+                System.IO.File.AppendAllText(@"C:\Error.txt", Environment.NewLine + "HandleError Exception: " + ex.Message);
+            }
+        }
     }
 }

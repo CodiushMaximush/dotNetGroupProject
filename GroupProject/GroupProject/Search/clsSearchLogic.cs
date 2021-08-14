@@ -68,18 +68,93 @@ namespace GroupProject.Search
             }
             catch (Exception ex) 
             {
-                MessageBox.Show(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
 
-        //GetAllInvoices();
-        //GetInvoiceByNumber(int num);
-        //GetInvoicesByDate(DateTime date);
-        //GetInvoicesByCost(decimal cost);
-        //GetInvoicesByNumAndDate(int num, DateTime date);
-        //GetInvoicesByNumAndDateAndCost(int num, DateTime date, decimal cost);
-        //GetInvoicesByDateAndCost(DateTime date, decimal cost);
+        public List<Invoices> GetAllInvoices()
+        {
+            try
+            {
+                return SearchSQL.GetAllInvoices();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
 
+        public List<Invoices> GetInvoiceByNumber(int num)
+        {
+            try
+            {
+                return SearchSQL.GetInvoiceByNumber(num);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        public List<Invoices> GetInvoicesByDate(DateTime date)
+        {
+            try
+            {
+                return SearchSQL.GetInvoicesByDate(date);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        public List<Invoices> GetInvoicesByCost(decimal cost)
+        {
+            try
+            {
+                return SearchSQL.GetInvoicesByCost(cost);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        public List<Invoices> GetInvoicesByNumAndDate(int num, DateTime date)
+        {
+            try
+            {
+                return SearchSQL.GetInvoicesByNumAndDate(num, date);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        public List<Invoices> GetInvoicesByNumAndDateAndCost(int num, DateTime date, decimal cost)
+        {
+            try
+            {
+                return SearchSQL.GetInvoicesByNumAndDateAndCost(num, date, cost);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        public List<Invoices> GetInvoicesByDateAndCost(DateTime date, decimal cost)
+        {
+            try
+            {
+                return SearchSQL.GetInvoicesByDateAndCost(date, cost);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
     }
 
 }
