@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,12 +26,62 @@ namespace GroupProject.Search
         public clsSearchLogic searchLogic;
 
         /// <summary>
+        /// List for invoices.
+        /// </summary>
+        public List<Invoices> InvoicesList;
+
+        /// <summary>
+        /// List for costs.
+        /// </summary>
+        public List<decimal> CostsList;
+
+        /// <summary>
+        /// The selected num.
+        /// </summary>
+        public int? SelectedNum;
+
+        /// <summary>
+        /// The selected date.
+        /// </summary>
+        public DateTime? SelectedDate;
+
+        /// <summary>
+        /// The selected cost.
+        /// </summary>
+        public decimal? SelectedCost;
+
+        /// <summary>
         /// Search Window Constructor.
         /// </summary>
         public wndSearch()
         {
             InitializeComponent();
             searchLogic = new clsSearchLogic();
+            SelectedNum = null;
+            SelectedCost = null;
+            SelectedDate = null;
+            InvoicesList = new List<Invoices>();
+            InvoicesList = searchLogic.GetAllInvoices();
+            CostsList = searchLogic.GetCosts();
+            CostsList.Sort();
+
+            // Fill invoice number combo box and add items to costs list.
+            foreach (Invoices invoice in InvoicesList)
+            {
+                cbInvoiceNumber.Items.Add(invoice.Num);
+            }
+
+            // Add costs list items to charges combo box.
+            foreach (decimal cost in CostsList)
+            {
+                cbTotalCharges.Items.Add(cost);
+            }
+
+            // Fill items list
+            foreach (Invoices invoice in InvoicesList)
+            {
+                lvInvoiceList.Items.Add(invoice);
+            }
         }
 
         /// <summary>
@@ -42,14 +93,19 @@ namespace GroupProject.Search
         {
             try
             {
+                // Check if a selection has been made.
                 if (cbInvoiceNumber.SelectedIndex != -1)
                 {
-                    // Filter list based on cbInvoiceNumber.SelectedItem
+                    // Set the SelectedNum variable to the selected item.
+                    SelectedNum = (int)cbInvoiceNumber.SelectedItem;
+                    // Filter the list
+                    FilterList();
                 }
             }
             catch (Exception ex)
             {
-                // throw appropriate exception
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                    MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
 
@@ -62,14 +118,19 @@ namespace GroupProject.Search
         {
             try
             {
+                // Check if a selction has been made.
                 if (cbTotalCharges.SelectedIndex != -1)
                 {
-                    // Filter list based on cbTotalCharges.SelectedItem
+                    // Set the SelectedCost variable to the selected item.
+                    SelectedCost = (decimal)cbTotalCharges.SelectedItem;
+                    // Filter the list
+                    FilterList();
                 }
             }
             catch (Exception ex)
             {
-                // throw appropriate exception
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                    MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
 
@@ -82,14 +143,19 @@ namespace GroupProject.Search
         {
             try
             {
+                // Check if a selection has been made.
                 if (dpInvoiceDatePicker.SelectedDate != null)
                 {
-                    // Filter list based on dpInvoiceDatePicker.SelectedDate
+                    // Set SelectedDate variable to the selected date item.
+                    SelectedDate = (DateTime)dpInvoiceDatePicker.SelectedDate;
+                    // Filter the list
+                    FilterList();
                 }
             }
             catch (Exception ex)
             {
-                // throw appropriate exception
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                    MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
 
@@ -102,13 +168,13 @@ namespace GroupProject.Search
         {
             try
             {
-                // Get Selected row info
-                // Invoke action from SearchLogic
+                searchLogic.SelectInvoice((Invoices)lvInvoiceList.SelectedItem);
                 Close();
             }
             catch(Exception ex)
             {
-                // Throw exception
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                    MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
 
@@ -121,16 +187,89 @@ namespace GroupProject.Search
         {
             try
             {
+                // Reset the selections.
                 dpInvoiceDatePicker.SelectedDate = null;
                 cbInvoiceNumber.SelectedIndex = -1;
                 cbTotalCharges.SelectedIndex = -1;
-                // Fill combo boxes with unfiltered data
+                SelectedNum = -1;
+                SelectedDate = DateTime.Now;
+                SelectedCost = -1;
+                InvoicesList.Clear();
+
+                InvoicesList = searchLogic.GetAllInvoices();
+
+                foreach (Invoices invoice in InvoicesList)
+                {
+                    lvInvoiceList.Items.Add(invoice);
+                }
             }
             catch (Exception ex)
             {
-                // Throw exception
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                    MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
 
+        /// <summary>
+        /// Filter the invoices list by the things that have been selected.
+        /// </summary>
+        private void FilterList()
+        {
+            List<Invoices> filteredList = new List<Invoices>();
+
+            if (SelectedNum != null && SelectedDate == null && SelectedCost == null)
+            {
+                filteredList = searchLogic.GetInvoiceByNumber((int)SelectedNum);
+            }
+            else if (SelectedNum != null && SelectedDate != null && SelectedCost == null)
+            {
+                filteredList = searchLogic.GetInvoicesByNumAndDate((int)SelectedNum, (DateTime)SelectedDate);
+            }
+            else if (SelectedNum != null && SelectedDate != null && SelectedCost != null)
+            {
+                filteredList = searchLogic.GetInvoicesByNumAndDateAndCost((int)SelectedNum, (DateTime)SelectedDate, (decimal)SelectedCost);
+            }
+            else if (SelectedNum == null && SelectedDate != null && SelectedCost == null)
+            {
+                filteredList = searchLogic.GetInvoicesByDateAndCost((DateTime)SelectedDate, (decimal)SelectedCost);
+            }
+            else if (SelectedNum == null && SelectedDate == null && SelectedCost != null)
+            {
+                filteredList = searchLogic.GetInvoicesByCost((decimal)SelectedCost);
+            }
+            else if (SelectedNum == null && SelectedDate != null && SelectedCost == null)
+            {
+                filteredList = searchLogic.GetInvoicesByDate((DateTime)SelectedDate);
+            }
+
+            InvoicesList.Clear();
+
+            InvoicesList = filteredList;
+
+            lvInvoiceList.Items.Clear();
+
+            foreach (Invoices invoice in InvoicesList)
+            {
+                lvInvoiceList.Items.Add(invoice);
+            }
+        }
+
+        /// <summary>
+        /// Error handling method.
+        /// </summary>
+        /// <param name="sClass"></param>
+        /// <param name="sMethod"></param>
+        /// <param name="sMessage"></param>
+        private void HandleError(string sClass, string sMethod, string sMessage)
+        {
+            try
+            {
+                MessageBox.Show(sClass + "." + sMethod + " -> " + sMessage);
+            }
+            catch (Exception ex)
+            {
+                System.IO.File.AppendAllText(@"C:\Error.txt", Environment.NewLine + "HandleError Exception: " + ex.Message);
+            }
+        }
     }
 }

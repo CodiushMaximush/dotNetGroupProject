@@ -50,17 +50,14 @@ namespace GroupProject.Search
             }
             catch (Exception ex)
             {
-                throw ex;
-               // MessageBox.Show(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
-
-            return null;
         }
 
         /// <summary>
         /// Get invoice with a given number.
         /// </summary>
-        /// <returns>List of invoice numbers equal to parameter.</returns>
+        /// <returns>Invoice with InvoiceNum equal to parameter.</returns>
         public List<Invoices> GetInvoiceByNumber(int num)
         {
             try
@@ -80,10 +77,8 @@ namespace GroupProject.Search
             }
             catch (Exception ex)
             {
-                MessageBox.Show(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
-
-            return null;
         }
 
         /// <summary>
@@ -106,15 +101,12 @@ namespace GroupProject.Search
                     Invoices.Add(new Invoices((int)row.ItemArray[0], DateTime.Parse(row.ItemArray[1].ToString()), (decimal)row.ItemArray[2]));
                 }
 
-
                 return Invoices;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
-
-            return null;
         }
 
         /// <summary>
@@ -140,10 +132,8 @@ namespace GroupProject.Search
             }
             catch (Exception ex)
             {
-                MessageBox.Show(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
-
-            return null;
         }
 
         /// <summary>
@@ -174,10 +164,8 @@ namespace GroupProject.Search
             }
             catch (Exception ex)
             {
-                MessageBox.Show(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
-
-            return null;
         }
 
         /// <summary>
@@ -210,10 +198,8 @@ namespace GroupProject.Search
             }
             catch (Exception ex)
             {
-                MessageBox.Show(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
-
-            return null;
         }
 
         /// <summary>
@@ -244,10 +230,35 @@ namespace GroupProject.Search
             }
             catch (Exception ex)
             {
-                MessageBox.Show(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
+        }
 
-            return null;
+        /// <summary>
+        /// Get list of costs of invoices.
+        /// </summary>
+        /// <returns></returns>
+        public List<decimal> GetCosts()
+        {
+            try
+            {
+                List<decimal> costs = new List<decimal>();
+
+                int rowsAffected = 0;
+                string query = "SELECT TotalCost " +
+                    "FROM Invoices";
+                DataRowCollection rows = DataAccess.ExecuteSQLStatement(query, ref rowsAffected).Tables[0].Rows;
+                foreach (DataRow row in rows)
+                {
+                    costs.Add((decimal)row.ItemArray[0]);
+                }
+
+                return costs;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
     }
 }
