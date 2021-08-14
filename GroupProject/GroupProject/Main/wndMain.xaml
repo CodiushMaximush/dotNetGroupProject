@@ -16,19 +16,19 @@
             <TextBox AcceptsReturn="True" />
 
             <StackPanel>
-                <GroupBox x:Name="detailsBox" Header="Details" Height="159">
+                <GroupBox x:Name="detailsBox" Header="Details" Height="159" IsEnabled="False">
                     <StackPanel Margin="16">
                         <StackPanel Orientation="Horizontal">
-                            <Label>Invoice Number: </Label>
-                            <Label Name="currentInvoiceNumber"></Label>
+                            <Label Foreground="Black">Invoice Number:   </Label>
+                            <Label Name="currentInvoiceNumber" Foreground="Black"></Label>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Invoice Date: </Label>
-                            <Label Name="currentInvoiceDate"></Label>
+                            <Label  Foreground="Black">Invoice Date:   </Label>
+                            <Label Name="currentInvoiceDate" Foreground="Black" ></Label>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Total Cost: </Label>
-                            <Label Name="currentInvoiceCost"></Label>
+                            <Label Foreground="Black">Total Cost:   </Label>
+                            <Label Name="currentInvoiceCost" Foreground="Black"></Label>
                         </StackPanel>
                         <Button x:Name="unlockControlsButton" Content="Unlock/Lock Controls" Click="UnlockControlsButton_Click"/>
 

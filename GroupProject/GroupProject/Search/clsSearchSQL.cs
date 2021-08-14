@@ -250,7 +250,7 @@ namespace GroupProject.Search
                 DataRowCollection rows = DataAccess.ExecuteSQLStatement(query, ref rowsAffected).Tables[0].Rows;
                 foreach (DataRow row in rows)
                 {
-                    costs.Add((decimal)row.ItemArray[0]);
+                    costs.Add(decimal.Parse(row.ItemArray[0].ToString()));
                 }
 
                 return costs;

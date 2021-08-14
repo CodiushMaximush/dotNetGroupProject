@@ -65,3 +65,5 @@ C:\Users\Cade\OneDrive\Desktop\Summer2021\CS3280 - Windows App\Assignments\dotNe
 C:\Users\Cade\OneDrive\Desktop\Summer2021\CS3280 - Windows App\Assignments\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\GroupProject.pdb
 C:\Users\Cade\OneDrive\Desktop\Summer2021\CS3280 - Windows App\Assignments\dotNetGroupProject\GroupProject\GroupProject\bin\Debug\GroupProject.pdb
 C:\Users\Cade\OneDrive\Desktop\Summer2021\CS3280 - Windows App\Assignments\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\GroupProject.csproj.AssemblyReference.cache
+C:\Users\codys\Desktop\dotNetGroupProject\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\ShinyBlue.baml
+C:\Users\codys\Desktop\dotNetGroupProject\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\App.baml

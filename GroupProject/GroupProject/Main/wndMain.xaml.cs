@@ -174,7 +174,10 @@ namespace GroupProject.Main
 
         private void UnlockControlsButton_Click(object sender, RoutedEventArgs e)
         {
-            invoiceControls.IsEnabled = !invoiceControls.IsEnabled;
+            if(mainLogic.currentInvoice != null)
+            {
+                invoiceControls.IsEnabled = !invoiceControls.IsEnabled;
+            }
         }
     }
 }
