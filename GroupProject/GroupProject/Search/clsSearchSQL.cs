@@ -233,5 +233,32 @@ namespace GroupProject.Search
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
+
+        /// <summary>
+        /// Get list of costs of invoices.
+        /// </summary>
+        /// <returns></returns>
+        public List<decimal> GetCosts()
+        {
+            try
+            {
+                List<decimal> costs = new List<decimal>();
+
+                int rowsAffected = 0;
+                string query = "SELECT TotalCost " +
+                    "FROM Invoices";
+                DataRowCollection rows = DataAccess.ExecuteSQLStatement(query, ref rowsAffected).Tables[0].Rows;
+                foreach (DataRow row in rows)
+                {
+                    costs.Add((decimal)row.ItemArray[0]);
+                }
+
+                return costs;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
     }
 }

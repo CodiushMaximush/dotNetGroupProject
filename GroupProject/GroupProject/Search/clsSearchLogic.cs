@@ -72,6 +72,10 @@ namespace GroupProject.Search
             }
         }
 
+        /// <summary>
+        /// Get all invoices.
+        /// </summary>
+        /// <returns></returns>
         public List<Invoices> GetAllInvoices()
         {
             try
@@ -84,6 +88,11 @@ namespace GroupProject.Search
             }
         }
 
+        /// <summary>
+        /// Get invoices by num.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
         public List<Invoices> GetInvoiceByNumber(int num)
         {
             try
@@ -96,6 +105,11 @@ namespace GroupProject.Search
             }
         }
 
+        /// <summary>
+        /// Get invoices by date.
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
         public List<Invoices> GetInvoicesByDate(DateTime date)
         {
             try
@@ -108,6 +122,11 @@ namespace GroupProject.Search
             }
         }
 
+        /// <summary>
+        /// Get invoices by cost.
+        /// </summary>
+        /// <param name="cost"></param>
+        /// <returns></returns>
         public List<Invoices> GetInvoicesByCost(decimal cost)
         {
             try
@@ -120,6 +139,12 @@ namespace GroupProject.Search
             }
         }
 
+        /// <summary>
+        /// Get invoices by num and date.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="date"></param>
+        /// <returns></returns>
         public List<Invoices> GetInvoicesByNumAndDate(int num, DateTime date)
         {
             try
@@ -132,6 +157,13 @@ namespace GroupProject.Search
             }
         }
 
+        /// <summary>
+        /// Get list of invoices by num, date, and cost.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="date"></param>
+        /// <param name="cost"></param>
+        /// <returns></returns>
         public List<Invoices> GetInvoicesByNumAndDateAndCost(int num, DateTime date, decimal cost)
         {
             try
@@ -144,11 +176,33 @@ namespace GroupProject.Search
             }
         }
 
+        /// <summary>
+        /// Get list of invoices by date and cost.
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="cost"></param>
+        /// <returns></returns>
         public List<Invoices> GetInvoicesByDateAndCost(DateTime date, decimal cost)
         {
             try
             {
                 return SearchSQL.GetInvoicesByDateAndCost(date, cost);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Get all the costs of the invoices.
+        /// </summary>
+        /// <returns></returns>
+        public List<decimal> GetCosts()
+        {
+            try
+            {
+                return SearchSQL.GetCosts();
             }
             catch (Exception ex)
             {
