@@ -43,6 +43,7 @@ namespace GroupProject.Search
                 DataRowCollection rows = DataAccess.ExecuteSQLStatement(query, ref rowsAffected).Tables[0].Rows;
                 foreach (DataRow row in rows)
                 {
+                    //Invoices.Add(new Invoices(int.Parse(row.ItemArray[0].ToString()), DateTime.Parse(row.ItemArray[1].ToString()), decimal.Parse(row.ItemArray[2].ToString())));
                     Invoices.Add(new Invoices(int.Parse(row.ItemArray[0].ToString()), DateTime.Parse(row.ItemArray[1].ToString()), decimal.Parse(row.ItemArray[2].ToString())));
                 }
 
@@ -65,12 +66,12 @@ namespace GroupProject.Search
                 List<Invoices> Invoices = new List<Invoices>();
 
                 int rowsAffected = 0;
-                string query = "SELECT InvoiceNum " +
+                string query = "SELECT * " +
                     "FROM Invoices WHERE InvoiceNum = " + num.ToString();
                 DataRowCollection rows = DataAccess.ExecuteSQLStatement(query, ref rowsAffected).Tables[0].Rows;
                 foreach (DataRow row in rows)
                 {
-                    Invoices.Add(new Invoices((int)row.ItemArray[0], DateTime.Parse(row.ItemArray[1].ToString()), (decimal)row.ItemArray[2]));
+                    Invoices.Add(new Invoices(int.Parse(row.ItemArray[0].ToString()), DateTime.Parse(row.ItemArray[1].ToString()), decimal.Parse(row.ItemArray[2].ToString())));
                 }
 
                 return Invoices;
@@ -93,12 +94,12 @@ namespace GroupProject.Search
                 string parsedDate = date.ToString("d", CultureInfo.CreateSpecificCulture("en-US"));
 
                 int rowsAffected = 0;
-                string query = "SELECT InvoiceDate " +
+                string query = "SELECT * " +
                     "FROM Invoices WHERE InvoiceDate = #" + parsedDate + "#";
                 DataRowCollection rows = DataAccess.ExecuteSQLStatement(query, ref rowsAffected).Tables[0].Rows;
                 foreach (DataRow row in rows)
                 {
-                    Invoices.Add(new Invoices((int)row.ItemArray[0], DateTime.Parse(row.ItemArray[1].ToString()), (decimal)row.ItemArray[2]));
+                    Invoices.Add(new Invoices(int.Parse(row.ItemArray[0].ToString()), DateTime.Parse(row.ItemArray[1].ToString()), decimal.Parse(row.ItemArray[2].ToString())));
                 }
 
                 return Invoices;
@@ -125,7 +126,7 @@ namespace GroupProject.Search
                 DataRowCollection rows = DataAccess.ExecuteSQLStatement(query, ref rowsAffected).Tables[0].Rows;
                 foreach (DataRow row in rows)
                 {
-                    Invoices.Add(new Invoices((int)row.ItemArray[0], DateTime.Parse(row.ItemArray[1].ToString()), (decimal)row.ItemArray[2]));
+                    Invoices.Add(new Invoices(int.Parse(row.ItemArray[0].ToString()), DateTime.Parse(row.ItemArray[1].ToString()), decimal.Parse(row.ItemArray[2].ToString())));
                 }
 
                 return Invoices;
@@ -142,7 +143,7 @@ namespace GroupProject.Search
         /// <param name="num"></param>
         /// <param name="date"></param>
         /// <returns>List of invoices with number and date equal to parameters.</returns>
-        public List<Invoices> GetInvoicesByNumAndDate(int num, DateTime date) 
+        public List<Invoices> GetInvoicesByNumAndDate(int num, DateTime date)
         {
             try
             {
@@ -152,12 +153,12 @@ namespace GroupProject.Search
                 int rowsAffected = 0;
                 string query = "SELECT * " +
                     "FROM Invoices " +
-                    "WHERE InvoiceNum = " + num.ToString() + " " +
-                    "AND InvoiceDate = '#" + parsedDate + "#'";
+                    "WHERE InvoiceNum = " + num.ToString() +
+                    " AND InvoiceDate = #" + parsedDate + "#";
                 DataRowCollection rows = DataAccess.ExecuteSQLStatement(query, ref rowsAffected).Tables[0].Rows;
                 foreach (DataRow row in rows)
                 {
-                    Invoices.Add(new Invoices((int)row.ItemArray[0], DateTime.Parse(row.ItemArray[1].ToString()), (decimal)row.ItemArray[2]));
+                    Invoices.Add(new Invoices(int.Parse(row.ItemArray[0].ToString()), DateTime.Parse(row.ItemArray[1].ToString()), decimal.Parse(row.ItemArray[2].ToString())));
                 }
 
                 return Invoices;
@@ -186,12 +187,12 @@ namespace GroupProject.Search
                 string query = "SELECT * " +
                     "FROM Invoices " +
                     "WHERE InvoiceNum = " + num.ToString() + " " +
-                    "AND InvoiceDate = '#" + parsedDate + "#' " +
+                    "AND InvoiceDate = #" + parsedDate + "# " +
                     "AND TotalCost = " + cost.ToString();
                 DataRowCollection rows = DataAccess.ExecuteSQLStatement(query, ref rowsAffected).Tables[0].Rows;
                 foreach (DataRow row in rows)
                 {
-                    Invoices.Add(new Invoices((int)row.ItemArray[0], DateTime.Parse(row.ItemArray[1].ToString()), (decimal)row.ItemArray[2]));
+                    Invoices.Add(new Invoices(int.Parse(row.ItemArray[0].ToString()), DateTime.Parse(row.ItemArray[1].ToString()), decimal.Parse(row.ItemArray[2].ToString())));
                 }
 
                 return Invoices;
@@ -218,12 +219,12 @@ namespace GroupProject.Search
                 int rowsAffected = 0;
                 string query = "SELECT * " +
                     "FROM Invoices " +
-                    "WHERE InvoiceDate = '#" + parsedDate + "#' " +
+                    "WHERE InvoiceDate = #" + parsedDate + "# " +
                     "AND TotalCost = " + cost.ToString();
                 DataRowCollection rows = DataAccess.ExecuteSQLStatement(query, ref rowsAffected).Tables[0].Rows;
                 foreach (DataRow row in rows)
                 {
-                    Invoices.Add(new Invoices((int)row.ItemArray[0], DateTime.Parse(row.ItemArray[1].ToString()), (decimal)row.ItemArray[2]));
+                    Invoices.Add(new Invoices(int.Parse(row.ItemArray[0].ToString()), DateTime.Parse(row.ItemArray[1].ToString()), decimal.Parse(row.ItemArray[2].ToString())));
                 }
 
                 return Invoices;

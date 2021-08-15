@@ -8,31 +8,32 @@
         Title="Search" Height="450" Width="800">
     <Grid>
         <GroupBox Header="Invoices" Margin="10,52,405,10">
-            <ListView Name="lvInvoiceList">
+            <ListView Name="InvoicesDataList" SelectionMode="Single" ScrollViewer.CanContentScroll="False" SelectionChanged="InvoicesDataList_SelectionChanged">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Invoice Number" Width="90" DisplayMemberBinding="{Binding Num}" />
-                        <GridViewColumn Header="Date" Width="137" DisplayMemberBinding="{Binding Date}" />
-                        <GridViewColumn Header="Total Cost" Width="138" DisplayMemberBinding="{Binding TotalCost}" />
+                        <GridViewColumn Header="Invoice Number" Width="100" DisplayMemberBinding="{Binding Num}" />
+                        <GridViewColumn Header="Date" Width="100" DisplayMemberBinding="{Binding Date}" />
+                        <GridViewColumn Header="Total Cost" Width="100" DisplayMemberBinding="{Binding TotalCost}" />
                     </GridView>
                 </ListView.View>
             </ListView>
         </GroupBox>
 
-        <Label Name="lblTitle" Content="Filter and Select Invoices" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="37" Width="472" FontSize="20"/>
+        <Label Name="lblTitle" Foreground="Black" Content="Filter and Select Invoices" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="37" Width="472" FontSize="20"/>
         <Button x:Name="btnSelectInvoice" Content="Select Invoice" HorizontalAlignment="Left" Margin="409,330,0,0" VerticalAlignment="Top" Width="130" Height="35" Click="btnSelectInvoice_Click"/>
         <Button x:Name="btnClearSearch" Content="Clear Search" HorizontalAlignment="Left" Margin="600,330,0,0" VerticalAlignment="Top" Width="130" Height="35" Click="btnClearSearch_Click"/>
         <GroupBox Header="Search Controls" HorizontalAlignment="Left" Height="315" Margin="392,10,0,0" VerticalAlignment="Top" Width="390">
             <StackPanel Margin="16" >
-                <Label>Select Invoice Number:</Label>
+                <Label Foreground="Black">Select Invoice Number:</Label>
                 <ComboBox Name="cbInvoiceNumber" SelectionChanged="cbInvoiceNumber_SelectionChanged" ></ComboBox>
                 <Label Margin ="16"></Label>
-                
-                <Label>Select Invoice Date:</Label>
-                <DatePicker Name="dpInvoiceDatePicker" SelectedDateChanged="dpInvoiceDatePicker_SelectedDateChanged"/>
+
+                <Label Foreground="Black">Select Invoice Date:</Label>
+                <!--<DatePicker Name="dpInvoiceDatePicker" SelectedDateChanged="dpInvoiceDatePicker_SelectedDateChanged"/>-->
+                <ComboBox Name="cbInvoiceDatePicker" SelectionChanged="cbInvoiceDatePicker_SelectionChanged"></ComboBox>
                 <Label Margin ="16"></Label>
-                
-                <Label>Select Total Charges:</Label>
+
+                <Label Foreground="Black">Select Total Charges:</Label>
                 <ComboBox Name="cbTotalCharges" SelectionChanged="cbTotalCharges_SelectionChanged" ></ComboBox>
             </StackPanel>
         </GroupBox>

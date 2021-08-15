@@ -51,6 +51,11 @@ namespace GroupProject.Search
         public decimal? SelectedCost;
 
         /// <summary>
+        /// Currently selected invoice.
+        /// </summary>
+        public Invoices SelectedInvoice;
+
+        /// <summary>
         /// Search Window Constructor.
         /// </summary>
         public wndSearch()
@@ -60,27 +65,35 @@ namespace GroupProject.Search
             SelectedNum = null;
             SelectedCost = null;
             SelectedDate = null;
+            SelectedInvoice = null;
             InvoicesList = new List<Invoices>();
             InvoicesList = searchLogic.GetAllInvoices();
             CostsList = searchLogic.GetCosts();
             CostsList.Sort();
+            InvoicesDataList.Foreground = Brushes.White;
 
-            // Fill invoice number combo box and add items to costs list.
+            // Disable select invoice until an invoice is selected.
+            btnSelectInvoice.IsEnabled = false;
+
+            // Fill invoice number and date combo box.
             foreach (Invoices invoice in InvoicesList)
             {
                 cbInvoiceNumber.Items.Add(invoice.Num);
+                cbInvoiceDatePicker.Items.Add(invoice.Date);
+                InvoicesDataList.Items.Add(invoice);
             }
 
             // Add costs list items to charges combo box.
             foreach (decimal cost in CostsList)
             {
-                cbTotalCharges.Items.Add(cost);
-            }
-
-            // Fill items list
-            foreach (Invoices invoice in InvoicesList)
-            {
-                lvInvoiceList.Items.Add(invoice);
+                if (cbTotalCharges.Items.Contains(cost))
+                {
+                    continue;
+                }
+                else
+                {
+                    cbTotalCharges.Items.Add(cost);
+                }
             }
         }
 
@@ -139,15 +152,15 @@ namespace GroupProject.Search
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void dpInvoiceDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        private void cbInvoiceDatePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
             {
                 // Check if a selection has been made.
-                if (dpInvoiceDatePicker.SelectedDate != null)
+                if (cbInvoiceDatePicker.SelectedIndex != -1)
                 {
                     // Set SelectedDate variable to the selected date item.
-                    SelectedDate = (DateTime)dpInvoiceDatePicker.SelectedDate;
+                    SelectedDate = (DateTime)cbInvoiceDatePicker.SelectedItem;
                     // Filter the list
                     FilterList();
                 }
@@ -168,8 +181,8 @@ namespace GroupProject.Search
         {
             try
             {
-                searchLogic.SelectInvoice((Invoices)lvInvoiceList.SelectedItem);
-                Close();
+                searchLogic.SelectInvoice((Invoices)InvoicesDataList.SelectedItem);
+                Hide();
             }
             catch(Exception ex)
             {
@@ -188,20 +201,33 @@ namespace GroupProject.Search
             try
             {
                 // Reset the selections.
-                dpInvoiceDatePicker.SelectedDate = null;
+                cbInvoiceDatePicker.SelectedIndex = -1;
                 cbInvoiceNumber.SelectedIndex = -1;
                 cbTotalCharges.SelectedIndex = -1;
-                SelectedNum = -1;
-                SelectedDate = DateTime.Now;
-                SelectedCost = -1;
-                InvoicesList.Clear();
+                SelectedNum = null;
+                SelectedDate = null;
+                SelectedCost = null;
+                SelectedInvoice = null;
+                FilterList();
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                    MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
 
-                InvoicesList = searchLogic.GetAllInvoices();
-
-                foreach (Invoices invoice in InvoicesList)
-                {
-                    lvInvoiceList.Items.Add(invoice);
-                }
+        /// <summary>
+        /// Get the selected invoice in the row and enable select button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void InvoicesDataList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                SelectedInvoice = (Invoices)InvoicesDataList.SelectedItem;
+                btnSelectInvoice.IsEnabled = true;
             }
             catch (Exception ex)
             {
@@ -215,42 +241,42 @@ namespace GroupProject.Search
         /// </summary>
         private void FilterList()
         {
-            List<Invoices> filteredList = new List<Invoices>();
+            InvoicesList.Clear();
+            InvoicesDataList.Items.Clear();
+            InvoicesDataList.Items.Refresh();
 
             if (SelectedNum != null && SelectedDate == null && SelectedCost == null)
             {
-                filteredList = searchLogic.GetInvoiceByNumber((int)SelectedNum);
+                InvoicesList = searchLogic.GetInvoiceByNumber((int)SelectedNum);
             }
             else if (SelectedNum != null && SelectedDate != null && SelectedCost == null)
             {
-                filteredList = searchLogic.GetInvoicesByNumAndDate((int)SelectedNum, (DateTime)SelectedDate);
+                InvoicesList = searchLogic.GetInvoicesByNumAndDate((int)SelectedNum, (DateTime)SelectedDate);
             }
             else if (SelectedNum != null && SelectedDate != null && SelectedCost != null)
             {
-                filteredList = searchLogic.GetInvoicesByNumAndDateAndCost((int)SelectedNum, (DateTime)SelectedDate, (decimal)SelectedCost);
+                InvoicesList = searchLogic.GetInvoicesByNumAndDateAndCost((int)SelectedNum, (DateTime)SelectedDate, (decimal)SelectedCost);
             }
-            else if (SelectedNum == null && SelectedDate != null && SelectedCost == null)
+            else if (SelectedNum == null && SelectedDate != null && SelectedCost != null)
             {
-                filteredList = searchLogic.GetInvoicesByDateAndCost((DateTime)SelectedDate, (decimal)SelectedCost);
+                InvoicesList = searchLogic.GetInvoicesByDateAndCost((DateTime)SelectedDate, (decimal)SelectedCost);
             }
             else if (SelectedNum == null && SelectedDate == null && SelectedCost != null)
             {
-                filteredList = searchLogic.GetInvoicesByCost((decimal)SelectedCost);
+                InvoicesList = searchLogic.GetInvoicesByCost((decimal)SelectedCost);
             }
             else if (SelectedNum == null && SelectedDate != null && SelectedCost == null)
             {
-                filteredList = searchLogic.GetInvoicesByDate((DateTime)SelectedDate);
+                InvoicesList = searchLogic.GetInvoicesByDate((DateTime)SelectedDate);
             }
-
-            InvoicesList.Clear();
-
-            InvoicesList = filteredList;
-
-            lvInvoiceList.Items.Clear();
+            else
+            {
+                InvoicesList = searchLogic.GetAllInvoices();
+            }
 
             foreach (Invoices invoice in InvoicesList)
             {
-                lvInvoiceList.Items.Add(invoice);
+                InvoicesDataList.Items.Add(invoice);
             }
         }
 
