@@ -42,8 +42,11 @@ G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project
 G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\GroupProject.pdb
 G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\ShinyBlue.baml
 G:\History of People\Classes\TERM 2021\SU 2021\CS 3280\Assignments\GROUP project\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\App.baml
-C:\Users\Cade\OneDrive\Desktop\Summer2021\CS3280 - Windows App\Assignments\dotNetGroupProject\GroupProject\GroupProject\bin\Debug\GroupProject.exe
+C:\Users\codys\Desktop\dotNetGroupProject\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\ShinyBlue.baml
+C:\Users\codys\Desktop\dotNetGroupProject\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\App.baml
 C:\Users\Cade\OneDrive\Desktop\Summer2021\CS3280 - Windows App\Assignments\dotNetGroupProject\GroupProject\GroupProject\bin\Debug\GroupProject.exe.config
+C:\Users\Cade\OneDrive\Desktop\Summer2021\CS3280 - Windows App\Assignments\dotNetGroupProject\GroupProject\GroupProject\bin\Debug\GroupProject.exe
+C:\Users\Cade\OneDrive\Desktop\Summer2021\CS3280 - Windows App\Assignments\dotNetGroupProject\GroupProject\GroupProject\bin\Debug\GroupProject.pdb
 C:\Users\Cade\OneDrive\Desktop\Summer2021\CS3280 - Windows App\Assignments\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\ShinyBlue.baml
 C:\Users\Cade\OneDrive\Desktop\Summer2021\CS3280 - Windows App\Assignments\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\Items\wndItems.g.cs
 C:\Users\Cade\OneDrive\Desktop\Summer2021\CS3280 - Windows App\Assignments\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\MainWindow.g.cs
@@ -63,7 +66,4 @@ C:\Users\Cade\OneDrive\Desktop\Summer2021\CS3280 - Windows App\Assignments\dotNe
 C:\Users\Cade\OneDrive\Desktop\Summer2021\CS3280 - Windows App\Assignments\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\GroupProject.csproj.CoreCompileInputs.cache
 C:\Users\Cade\OneDrive\Desktop\Summer2021\CS3280 - Windows App\Assignments\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\GroupProject.exe
 C:\Users\Cade\OneDrive\Desktop\Summer2021\CS3280 - Windows App\Assignments\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\GroupProject.pdb
-C:\Users\Cade\OneDrive\Desktop\Summer2021\CS3280 - Windows App\Assignments\dotNetGroupProject\GroupProject\GroupProject\bin\Debug\GroupProject.pdb
 C:\Users\Cade\OneDrive\Desktop\Summer2021\CS3280 - Windows App\Assignments\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\GroupProject.csproj.AssemblyReference.cache
-C:\Users\codys\Desktop\dotNetGroupProject\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\ShinyBlue.baml
-C:\Users\codys\Desktop\dotNetGroupProject\dotNetGroupProject\GroupProject\GroupProject\obj\Debug\App.baml

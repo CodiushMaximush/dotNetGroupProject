@@ -8,9 +8,9 @@ namespace GroupProject.Search
 {
     public class Invoices
     {
-        public int Num;
-        public DateTime Date;
-        public decimal TotalCost;
+        public int Num { get; set; }
+        public DateTime Date { get; set; }
+        public decimal TotalCost { get; set; }
 
         public Invoices(int num, DateTime date, decimal totalCost)
         {
